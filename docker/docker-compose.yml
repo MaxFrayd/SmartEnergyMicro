@@ -1,25 +1,25 @@
 version: '2.1'
 services:
+
   database:
-    image: postgres:latest
-    ports:
-      - "5432:5432"
+    image: mysql
+    restart: always
     environment:
-      POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "postgres"
-      POSTGRES_DB:       "ostock_dev"
-    volumes:
-        - ./init.sql:/docker-entrypoint-initdb.d/1-init.sql
-        - ./data.sql:/docker-entrypoint-initdb.d/2-data.sql
+      MYSQL_ROOT_PASSWORD: Ab57prdlAb
+      MYSQL_DATABASE: smart_energy
+    ports:
+      - "3306:3306"
+
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
     networks:
       backend:
         aliases:
           - "database"
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
   configserver:
     image: ostock/configserver:0.0.1-SNAPSHOT
     ports:
@@ -65,13 +65,12 @@ services:
       backend:
         aliases:
           - "gateway"
-  licensingservice:
-    image: ostock/licensing-service:0.0.3-SNAPSHOT
+  smartenergy:
+    image: ostock/smartenergy:0.0.1-SNAPSHOT
     environment:
-      PROFILE: "dev"
       CONFIGSERVER_URI: "http://configserver:8071"
       CONFIGSERVER_PORT:   "8071"
-      DATABASESERVER_PORT: "5432"
+      DATABASESERVER_PORT: "3306"
       ENCRYPT_KEY:       "IMSYMMETRIC"
     depends_on:
       database:
@@ -79,24 +78,7 @@ services:
       configserver:
         condition: service_started
     ports:
-      - "8080:8080"
-    networks:
-      - backend
-  organizationservice:
-    image: ostock/organization-service:0.0.1-SNAPSHOT
-    environment:
-      PROFILE: "dev"
-      CONFIGSERVER_URI: "http://configserver:8071"
-      CONFIGSERVER_PORT:   "8071"
-      DATABASESERVER_PORT: "5432"
-      ENCRYPT_KEY:       "IMSYMMETRIC"
-    depends_on:
-      database:
-        condition: service_healthy
-      configserver:
-        condition: service_started
-    ports:
-      - "8081:8081"
+      - "8082:8082"
     networks:
       - backend
 
