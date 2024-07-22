@@ -22,6 +22,12 @@ spring:
             - Path=/smartenergy/**
           filters:
             - RewritePath=/smartenergy/(?<path>.*), /$\{path}
+        - id: smartenergycustomer
+          uri: lb://smartenergycustomer
+          predicates:
+            - Path=/smartenergycustomer/**
+          filters:
+            - RewritePath=/smartenergycustomer/(?<path>.*), /$\{path}
 
 
        

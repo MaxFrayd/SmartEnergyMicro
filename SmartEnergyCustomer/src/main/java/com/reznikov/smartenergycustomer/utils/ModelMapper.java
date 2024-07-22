@@ -1,10 +1,10 @@
-package com.reznikov.smartenergy.utils;
+package com.reznikov.smartenergycustomer.utils;
 
-import com.reznikov.smartenergy.domains.Address;
-import com.reznikov.smartenergy.domains.Supplier;
-import com.reznikov.smartenergy.dto.AddressDto;
-import com.reznikov.smartenergy.dto.SupplierRegDto;
-import com.reznikov.smartenergy.enums.SupplierStatus;
+import com.reznikov.smartenergycustomer.domains.Address;
+import com.reznikov.smartenergycustomer.domains.Supplier;
+import com.reznikov.smartenergycustomer.dto.AddressDto;
+import com.reznikov.smartenergycustomer.dto.SupplierRegDto;
+import com.reznikov.smartenergycustomer.enums.SupplierStatus;
 import org.springframework.stereotype.Component;
 
 @Component

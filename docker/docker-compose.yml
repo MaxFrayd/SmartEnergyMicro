@@ -7,6 +7,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: Ab57prdlAb
       MYSQL_DATABASE: smart_energy
+
     ports:
       - "3306:3306"
 
@@ -15,6 +16,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    volumes:
+      - ./mysql-initdb:/docker-entrypoint-initdb.d
 
     networks:
       backend:
@@ -79,6 +82,22 @@ services:
         condition: service_started
     ports:
       - "8082:8082"
+    networks:
+      - backend
+  smartenergycustomer:
+    image: ostock/smartenergycustomer:0.0.1-SNAPSHOT
+    environment:
+      CONFIGSERVER_URI: "http://configserver:8071"
+      CONFIGSERVER_PORT: "8071"
+      DATABASESERVER_PORT: "3306"
+      ENCRYPT_KEY: "IMSYMMETRIC"
+    depends_on:
+      database:
+        condition: service_healthy
+      configserver:
+        condition: service_started
+    ports:
+      - "8083:8083"
     networks:
       - backend
 

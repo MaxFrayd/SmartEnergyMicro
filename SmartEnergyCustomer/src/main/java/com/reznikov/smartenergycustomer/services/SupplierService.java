@@ -1,7 +1,7 @@
-package com.reznikov.smartenergy.services;
+package com.reznikov.smartenergycustomer.services;
 
-import com.reznikov.smartenergy.domains.Supplier;
-import com.reznikov.smartenergy.dto.SupplierRegDto;
+import com.reznikov.smartenergycustomer.domains.Supplier;
+import com.reznikov.smartenergycustomer.dto.SupplierRegDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;

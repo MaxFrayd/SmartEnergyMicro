@@ -1,11 +1,11 @@
-package com.reznikov.smartenergy.utils;
+package com.reznikov.smartenergycustomer.utils;
 
 import com.github.javafaker.Faker;
-import com.reznikov.smartenergy.domains.Address;
-import com.reznikov.smartenergy.domains.Supplier;
-import com.reznikov.smartenergy.enums.SupplierStatus;
-import com.reznikov.smartenergy.repositories.AddressRepository;
-import com.reznikov.smartenergy.repositories.SupplierRepository;
+import com.reznikov.smartenergycustomer.domains.Address;
+import com.reznikov.smartenergycustomer.domains.Supplier;
+import com.reznikov.smartenergycustomer.enums.SupplierStatus;
+import com.reznikov.smartenergycustomer.repositories.AddressRepository;
+import com.reznikov.smartenergycustomer.repositories.SupplierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

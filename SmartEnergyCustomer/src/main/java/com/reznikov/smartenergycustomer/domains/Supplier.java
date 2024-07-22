@@ -1,6 +1,6 @@
-package com.reznikov.smartenergy.domains;
+package com.reznikov.smartenergycustomer.domains;
 
-import com.reznikov.smartenergy.enums.SupplierStatus;
+import com.reznikov.smartenergycustomer.enums.SupplierStatus;
 
 import javax.persistence.*;
 import lombok.*;

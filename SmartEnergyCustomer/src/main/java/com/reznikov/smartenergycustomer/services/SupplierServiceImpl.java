@@ -1,15 +1,15 @@
-package com.reznikov.smartenergy.services;
+package com.reznikov.smartenergycustomer.services;
 
-import com.reznikov.smartenergy.domains.Address;
-import com.reznikov.smartenergy.domains.Supplier;
-import com.reznikov.smartenergy.dto.SupplierRegDto;
-import com.reznikov.smartenergy.enums.SupplierStatus;
-import com.reznikov.smartenergy.repositories.AddressRepository;
-import com.reznikov.smartenergy.repositories.SupplierRepository;
-import com.reznikov.smartenergy.utils.DuplicateEntityException;
-import com.reznikov.smartenergy.utils.InvalidFormatException;
-import com.reznikov.smartenergy.utils.ModelMapper;
-import com.reznikov.smartenergy.utils.SupplierNotFoundException;
+import com.reznikov.smartenergycustomer.domains.Address;
+import com.reznikov.smartenergycustomer.domains.Supplier;
+import com.reznikov.smartenergycustomer.dto.SupplierRegDto;
+import com.reznikov.smartenergycustomer.enums.SupplierStatus;
+import com.reznikov.smartenergycustomer.repositories.AddressRepository;
+import com.reznikov.smartenergycustomer.repositories.SupplierRepository;
+import com.reznikov.smartenergycustomer.utils.DuplicateEntityException;
+import com.reznikov.smartenergycustomer.utils.InvalidFormatException;
+import com.reznikov.smartenergycustomer.utils.ModelMapper;
+import com.reznikov.smartenergycustomer.utils.SupplierNotFoundException;
 
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;

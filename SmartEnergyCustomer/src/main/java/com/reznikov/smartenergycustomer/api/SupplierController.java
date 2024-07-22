@@ -1,11 +1,11 @@
-package com.reznikov.smartenergy.api;
+package com.reznikov.smartenergycustomer.api;
 
-import com.reznikov.smartenergy.domains.Supplier;
-import com.reznikov.smartenergy.dto.SupplierRegDto;
-import com.reznikov.smartenergy.dto.SupplierSearchDto;
-import com.reznikov.smartenergy.services.SupplierService;
-import com.reznikov.smartenergy.specifications.SupplierSpecificationBuilder;
-import com.reznikov.smartenergy.specifications.SearchCriteria;
+import com.reznikov.smartenergycustomer.domains.Supplier;
+import com.reznikov.smartenergycustomer.dto.SupplierRegDto;
+import com.reznikov.smartenergycustomer.dto.SupplierSearchDto;
+import com.reznikov.smartenergycustomer.services.SupplierService;
+import com.reznikov.smartenergycustomer.specifications.SupplierSpecificationBuilder;
+import com.reznikov.smartenergycustomer.specifications.SearchCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
