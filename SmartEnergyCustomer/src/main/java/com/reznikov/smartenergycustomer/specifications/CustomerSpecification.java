@@ -1,7 +1,7 @@
 package com.reznikov.smartenergycustomer.specifications;
 
-import com.reznikov.smartenergycustomer.domains.Supplier;
-import com.reznikov.smartenergycustomer.dto.SupplierSearchDto;
+import com.reznikov.smartenergycustomer.domains.Customer;
+import com.reznikov.smartenergycustomer.dto.CustomerSearchDto;
 import com.reznikov.smartenergycustomer.enums.SearchOperation;
 import javax.persistence.criteria.*;
 import org.springframework.data.jpa.domain.Specification;
@@ -10,14 +10,14 @@ import org.springframework.lang.NonNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SupplierSpecification implements Specification<Supplier> {
+public class CustomerSpecification implements Specification<Customer> {
 
-    private final SupplierSearchDto criteria;
+    private final CustomerSearchDto criteria;
 
-    public SupplierSpecification(SupplierSearchDto criteria) {
+    public CustomerSpecification(CustomerSearchDto criteria) {
         this.criteria = criteria;
     }
-    private <T extends Comparable<T>> Predicate getPredicate(Root<Supplier> root, CriteriaBuilder builder,SearchCriteria<T> searchCriteria  ){
+    private <T extends Comparable<T>> Predicate getPredicate(Root<Customer> root, CriteriaBuilder builder, SearchCriteria<T> searchCriteria  ){
         String key = searchCriteria.getKey();
         SearchOperation operation = SearchOperation.getSimpleOperation(searchCriteria.getOperation());
         T value = searchCriteria.getValue();//DataType of Value ?
@@ -65,7 +65,7 @@ public class SupplierSpecification implements Specification<Supplier> {
 
     @Override
 
-    public Predicate toPredicate(@NonNull Root<Supplier> root,@NonNull CriteriaQuery<?> query, @NonNull CriteriaBuilder builder) {
+    public Predicate toPredicate(@NonNull Root<Customer> root, @NonNull CriteriaQuery<?> query, @NonNull CriteriaBuilder builder) {
         List<Predicate> predicates = new ArrayList<>();
 
         for (SearchCriteria<?> searchCriteria : criteria.getSearchCriteriaList()) {

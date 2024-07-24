@@ -2,19 +2,19 @@ package com.reznikov.smartenergycustomer.utils;
 
 import com.github.javafaker.Faker;
 import com.reznikov.smartenergycustomer.domains.Address;
-import com.reznikov.smartenergycustomer.domains.Supplier;
-import com.reznikov.smartenergycustomer.enums.SupplierStatus;
+import com.reznikov.smartenergycustomer.domains.Customer;
+import com.reznikov.smartenergycustomer.enums.CustomerStatus;
 import com.reznikov.smartenergycustomer.repositories.AddressRepository;
-import com.reznikov.smartenergycustomer.repositories.SupplierRepository;
+import com.reznikov.smartenergycustomer.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SupplierDataInitializer implements CommandLineRunner {
+public class CustomerDataInitializer implements CommandLineRunner {
 
     @Autowired
-    private SupplierRepository supplierRepository;
+    private CustomerRepository customerRepository;
 
     @Autowired
     private AddressRepository addressRepository;
@@ -38,15 +38,14 @@ public class SupplierDataInitializer implements CommandLineRunner {
             address.setCity(faker.address().city());
             addressRepository.save(address);
 
-            Supplier supplier = new Supplier();
-            supplier.setName(faker.company().name());
-            supplier.setEmail(faker.internet().emailAddress());
-            supplier.setAddress(address);
-            supplier.setEnergyAmount(faker.number().randomDouble(2, 1000, 5000));
-            supplier.setStatus(SupplierStatus.ACTIVE);
-            supplier.setPricePrKwt(faker.number().randomDouble(2, 1000, 5000));
-            supplier.setCurrentEnergyAmount(supplier.getEnergyAmount());
-            supplierRepository.save(supplier);
+            Customer customer = new Customer();
+            customer.setName(faker.company().name());
+            customer.setEmail(faker.internet().emailAddress());
+            customer.setAddress(address);
+            customer.setEnergyAmount(faker.number().randomDouble(2, 1000, 5000));
+            customer.setStatus(CustomerStatus.ACTIVE);
+            customer.setPricePrKwt(faker.number().randomDouble(2, 1000, 5000));
+            customerRepository.save(customer);
         }
     }
 }

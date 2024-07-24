@@ -1,6 +1,6 @@
 package com.reznikov.smartenergycustomer.domains;
 
-import com.reznikov.smartenergycustomer.enums.SupplierStatus;
+import com.reznikov.smartenergycustomer.enums.CustomerStatus;
 
 import javax.persistence.*;
 import lombok.*;
@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 @Entity
 @Builder
-public class Supplier {
+public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,15 +28,17 @@ public class Supplier {
 
     @OneToOne
     private Address address;
+
+    @Column(name = "supplier_id")
+    private Long supplierId;
     @Column(nullable = false)
     private Double energyAmount;
-    @Column(nullable = false)
-    private Double currentEnergyAmount;
+
     @Column(nullable = false)
     private Double pricePrKwt;
 
     @Enumerated(EnumType.STRING)
-    private SupplierStatus status;
+    private CustomerStatus status;
 
     @CreationTimestamp
     private LocalDateTime created;

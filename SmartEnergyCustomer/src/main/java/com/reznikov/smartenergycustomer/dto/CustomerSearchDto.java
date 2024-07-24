@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class SupplierSearchDto  implements Serializable {
+public class CustomerSearchDto implements Serializable {
     private List<SearchCriteria<?>> searchCriteriaList ;
     private  String dataOption;
 }

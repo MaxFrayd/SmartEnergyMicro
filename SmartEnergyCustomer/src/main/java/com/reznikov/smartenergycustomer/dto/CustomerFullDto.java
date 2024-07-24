@@ -1,10 +1,11 @@
 package com.reznikov.smartenergycustomer.dto;
 
-import com.reznikov.smartenergycustomer.enums.SupplierStatus;
+import com.reznikov.smartenergycustomer.enums.CustomerStatus;
 import javax.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,7 +18,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class SupplierFullDto {
+public class CustomerFullDto {
 
     private Long id;
 
@@ -29,12 +30,14 @@ public class SupplierFullDto {
 
     @Valid
     private AddressDto address;
+    @NotNull
+    private Long supplierId;
 
     @PositiveOrZero(message = "Amount of energy should be zero or positive")
     private double energyAmount;
 
     @Enumerated(EnumType.STRING)
-    private SupplierStatus status;
+    private CustomerStatus status;
 
     @CreationTimestamp
     private LocalDateTime created;

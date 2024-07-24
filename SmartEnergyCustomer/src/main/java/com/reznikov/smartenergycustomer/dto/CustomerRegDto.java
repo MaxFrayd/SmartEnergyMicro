@@ -10,18 +10,19 @@
     import lombok.Data;
     import lombok.NoArgsConstructor;
 
-    import javax.persistence.Column;
-
     @AllArgsConstructor
     @NoArgsConstructor
     @Data
     @Builder
-    public class SupplierRegDto {
+    public class CustomerRegDto {
         @NotBlank(message = "Name is mandatory")
         private String name;
 
         @Email(message = "Email should be valid")
         private String email;
+
+        @NotNull
+        private Long supplierId;
 
         @Valid
         private AddressDto address;

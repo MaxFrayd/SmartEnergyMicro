@@ -43,4 +43,6 @@ public class Supplier {
 
     @UpdateTimestamp
     private  LocalDateTime updated;
+
+
 }
