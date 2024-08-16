@@ -27,7 +27,7 @@ public class CustomerController {
     private CustomerService customerService;
 
     @GetMapping("/search")
-    public ResponseEntity<List<CustomerRegDto>> findSupplierByComplexCriterias(
+    public ResponseEntity<List<CustomerRegDto>> findCustomerByComplexCriterias(
             @RequestParam String name,
             @RequestParam String email) {
         List<CustomerRegDto> supplierDtos = customerService.findSuppliersByCriteria(name, email);
@@ -41,30 +41,34 @@ public class CustomerController {
     }
 
     @GetMapping("{id}/activate")
-    public ResponseEntity<String> activateSupplier(@PathVariable Long id) {
+    public ResponseEntity<String> activateCustomer(@PathVariable Long id) {
         return ResponseEntity.ok(customerService.activateSupplier(id));
     }
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<Customer> updateSupplier(@PathVariable Long id, @RequestBody Customer customer) {
+    public ResponseEntity<Customer> updateCustomer(@PathVariable Long id, @RequestBody Customer customer) {
         customer.setId(id);
         return ResponseEntity.ok(customerService.updateSupplier(customer));
     }
 
     @GetMapping
-    public ResponseEntity<List<Customer>> getAllSuppliers() {
+    public ResponseEntity<List<Customer>> getAllCustomers() {
         //FIXME refact
         return ResponseEntity.ok(customerService.getAllSuppliers());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Customer>> getSupplierById(@PathVariable Long id) {
+    public ResponseEntity<Optional<Customer>> getCustomerById(@PathVariable Long id) {
         return ResponseEntity.ok(customerService.getSupplierById(id));
+    }
+    @GetMapping("/supplier/{id}")
+    public ResponseEntity<List<Customer>> getCustomersBySupplierId(@PathVariable Long id) {
+        return ResponseEntity.ok(customerService.getCustomersBySupplier(id));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteSupplier(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteCustomer(@PathVariable Long id) {
         customerService.deleteSupplier(id);
         return ResponseEntity.noContent().build();
     }

@@ -6,6 +6,9 @@ import com.reznikov.smartenergy.dto.SupplierSearchDto;
 import com.reznikov.smartenergy.services.SupplierService;
 import com.reznikov.smartenergy.specifications.SupplierSpecificationBuilder;
 import com.reznikov.smartenergy.specifications.SearchCriteria;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,12 +18,16 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.data.domain.Pageable;
+
+import javax.annotation.security.RolesAllowed;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/suppliers")
 @Validated
+@Api(value = "smartenergy-application", description = "Operations pertaining to agency management and ticket issue in the BRS application")
+
 public class SupplierController {
 
     @Autowired
@@ -34,7 +41,7 @@ public class SupplierController {
         return ResponseEntity.ok(supplierDtos);
     }
 
-
+    @RolesAllowed({"ADMIN"})
     @PostMapping
     public ResponseEntity<String> addSupplier(@RequestBody @Validated SupplierRegDto supplier) {
         return ResponseEntity.ok(supplierService.addSupplier(supplier));
@@ -53,6 +60,7 @@ public class SupplierController {
     }
 
     @GetMapping
+    @ApiOperation(value = "", authorizations = {@Authorization(value = "apiKey")})
     public ResponseEntity<List<Supplier>> getAllSuppliers() {
         return ResponseEntity.ok(supplierService.getAllSuppliers());
     }

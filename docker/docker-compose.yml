@@ -23,6 +23,25 @@ services:
       backend:
         aliases:
           - "database"
+  kdatabase:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_DB: "smart_energy_keycloak"
+    volumes:
+      - ./kdb:/docker-entrypoint-kdb.d
+    networks:
+      backend:
+        aliases:
+          - "kdatabase"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
   configserver:
     image: ostock/configserver:0.0.1-SNAPSHOT
     ports:
@@ -100,6 +119,27 @@ services:
       - "8083:8083"
     networks:
       - backend
+
+  keycloak:
+    image: keycloak/keycloak:latest
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+      - KC_DB=postgres
+      - KC_DB_URL=jdbc:postgresql://kdatabase:5432/smart_energy_keycloak
+      - KC_DB_USERNAME=postgres
+      - KC_DB_PASSWORD=postgres
+    ports:
+      - 8080:8080
+    depends_on:
+      kdatabase:
+        condition: service_healthy
+    command:
+      - start-dev
+    networks:
+      backend:
+        aliases:
+          - "keycloak"
 
 networks:
   backend:

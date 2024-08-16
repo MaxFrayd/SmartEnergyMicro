@@ -1,7 +1,6 @@
 package com.reznikov.smartenergycustomer.services;
 
 import com.reznikov.smartenergycustomer.domains.Customer;
-import com.reznikov.smartenergycustomer.dto.CustomerFullDto;
 import com.reznikov.smartenergycustomer.dto.CustomerRegDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

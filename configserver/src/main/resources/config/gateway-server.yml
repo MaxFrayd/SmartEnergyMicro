@@ -28,6 +28,7 @@ spring:
             - Path=/smartenergycustomer/**
           filters:
             - RewritePath=/smartenergycustomer/(?<path>.*), /$\{path}
+            - RemoveRequestHeader=Cookie,Set-Cookie
 
 
        

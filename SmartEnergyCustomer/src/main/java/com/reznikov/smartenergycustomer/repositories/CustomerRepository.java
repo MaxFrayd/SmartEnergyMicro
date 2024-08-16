@@ -13,5 +13,6 @@ import org.springframework.stereotype.Repository;
 public interface CustomerRepository extends JpaRepository<Customer, Long>, JpaSpecificationExecutor<Customer> {
      Customer findByEmail(String email);
      List<Customer> findAllByNameAndEmail(String name, String email);
+     List<Customer> findAllBySupplierId(Long supplierId);
 
 }
