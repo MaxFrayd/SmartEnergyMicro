@@ -3,18 +3,18 @@ package com.reznikov.smartenergy.services.client;
 
 import com.reznikov.smartenergy.dto.CustomerFullDto;
 import org.keycloak.adapters.springsecurity.client.KeycloakRestTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Component
 public class SupplierRestTemplateClient {
 
-    @Autowired
+    @Resource
     private KeycloakRestTemplate restTemplate;
 
     public List<CustomerFullDto> getCustomers(Long organizationId) {

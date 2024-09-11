@@ -8,19 +8,10 @@ import com.reznikov.smartenergycustomer.dto.CustomerRegDto;
 import com.reznikov.smartenergycustomer.enums.CustomerStatus;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 
 @Component
 public class ModelMapper {
     public Customer fromFormDto(CustomerRegDto dto) {
-//        return new Supplier(dto.getName(),
-//                dto.getEmail(),
-//                fromAddressDto(dto.getAddress()),
-//                dto.getEnergyAmount(),
-//                SupplierStatus.NEW);
-//                dto.getEnergyAmount(),
-//                dto.getPricePrKwt()
-
         return Customer.builder()
                 .name(dto.getName())
                 .email(dto.getEmail())
@@ -38,11 +29,6 @@ public class ModelMapper {
                 .address(toAddressDto(entity.getAddress()))
                 .energyAmount(entity.getEnergyAmount())
                 .supplierId(entity.getSupplierId())
-//                entity.getName(),
-//                entity.getEmail(),
-//                toAddressDto(entity.getAddress()),
-//                entity.getEnergyAmount()
-//                );
                 .build();
     }
 
