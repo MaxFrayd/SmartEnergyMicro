@@ -1,6 +1,7 @@
 package com.reznikov.smartenergycustomer.api;
 
 import com.reznikov.smartenergycustomer.domains.Customer;
+import com.reznikov.smartenergycustomer.dto.CustomerFullDto;
 import com.reznikov.smartenergycustomer.dto.CustomerRegDto;
 import com.reznikov.smartenergycustomer.dto.CustomerSearchDto;
 import com.reznikov.smartenergycustomer.services.CustomerService;
@@ -15,12 +16,16 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.data.domain.Pageable;
+
+import javax.annotation.security.RolesAllowed;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/customer")
 @Validated
+
+
 public class CustomerController {
 
     @Autowired
@@ -53,17 +58,18 @@ public class CustomerController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Customer>> getAllCustomers() {
-        //FIXME refact
-        return ResponseEntity.ok(customerService.getAllSuppliers());
-    }
+        public ResponseEntity<List<Customer>> getAllCustomers() {
 
+            return ResponseEntity.ok(customerService.getAllSuppliers());
+    }
+    @RolesAllowed({"ADMIN"})
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Customer>> getCustomerById(@PathVariable Long id) {
         return ResponseEntity.ok(customerService.getSupplierById(id));
     }
+    @RolesAllowed({"ADMIN"})
     @GetMapping("/supplier/{id}")
-    public ResponseEntity<List<Customer>> getCustomersBySupplierId(@PathVariable Long id) {
+    public ResponseEntity<List<CustomerFullDto>> getCustomersBySupplierId(@PathVariable Long id) {
         return ResponseEntity.ok(customerService.getCustomersBySupplier(id));
     }
 

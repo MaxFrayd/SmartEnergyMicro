@@ -1,4 +1,4 @@
-package com.reznikov.smartenergy.utils;
+package com.reznikov.smartenergycustomer.utils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,10 +21,9 @@ public class UserContextFilter implements Filter {
 
         UserContextHolder.getContext().setCorrelationId(  httpServletRequest.getHeader(UserContext.CORRELATION_ID) );
         UserContextHolder.getContext().setUserId( httpServletRequest.getHeader(UserContext.USER_ID) );
-        UserContextHolder.getContext().setAuthToken( httpServletRequest.getHeader("Authorization") );
+        UserContextHolder.getContext().setAuthToken( httpServletRequest.getHeader(UserContext.AUTH_TOKEN) );
         UserContextHolder.getContext().setOrgId( httpServletRequest.getHeader(UserContext.ORG_ID) );
-        System.out.println("Copy Organization Service Incoming Correlation id: {}"+UserContextHolder.getContext().getCorrelationId());
-        System.out.println(UserContextHolder.getContext().getAuthToken());
+
         logger.debug("Organization Service Incoming Correlation id: {}" ,UserContextHolder.getContext().getCorrelationId());
         filterChain.doFilter(httpServletRequest, servletResponse);
     }

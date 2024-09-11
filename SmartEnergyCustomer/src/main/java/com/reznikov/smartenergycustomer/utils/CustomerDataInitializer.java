@@ -45,6 +45,7 @@ public class CustomerDataInitializer implements CommandLineRunner {
             customer.setEnergyAmount(faker.number().randomDouble(2, 1000, 5000));
             customer.setStatus(CustomerStatus.ACTIVE);
             customer.setPricePrKwt(faker.number().randomDouble(2, 1000, 5000));
+            customer.setSupplierId((long) faker.number().numberBetween(1,3));
             customerRepository.save(customer);
         }
     }

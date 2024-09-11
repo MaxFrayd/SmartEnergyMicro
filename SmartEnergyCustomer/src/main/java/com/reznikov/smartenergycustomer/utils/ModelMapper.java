@@ -3,6 +3,7 @@ package com.reznikov.smartenergycustomer.utils;
 import com.reznikov.smartenergycustomer.domains.Address;
 import com.reznikov.smartenergycustomer.domains.Customer;
 import com.reznikov.smartenergycustomer.dto.AddressDto;
+import com.reznikov.smartenergycustomer.dto.CustomerFullDto;
 import com.reznikov.smartenergycustomer.dto.CustomerRegDto;
 import com.reznikov.smartenergycustomer.enums.CustomerStatus;
 import org.springframework.stereotype.Component;
@@ -50,5 +51,17 @@ public class ModelMapper {
     }
     public AddressDto toAddressDto(Address address) {
         return new AddressDto(address.getLatitude(), address.getLongitude(), address.getCity());
+    }
+
+    public CustomerFullDto toFullDto(Customer entity) {
+        return CustomerFullDto.builder()
+                .id(entity.getId())
+                .name(entity.getName())
+                .email(entity.getEmail())
+                .address(toAddressDto(entity.getAddress()))
+                .energyAmount(entity.getEnergyAmount())
+                .supplierId(entity.getSupplierId())
+                //ADD other fields
+                .build();
     }
 }

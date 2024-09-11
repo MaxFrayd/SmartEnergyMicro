@@ -1,9 +1,11 @@
 package com.reznikov.smartenergy.api;
 
 import com.reznikov.smartenergy.domains.Supplier;
+import com.reznikov.smartenergy.dto.CustomerFullDto;
 import com.reznikov.smartenergy.dto.SupplierRegDto;
 import com.reznikov.smartenergy.dto.SupplierSearchDto;
 import com.reznikov.smartenergy.services.SupplierService;
+import com.reznikov.smartenergy.services.client.SupplierRestTemplateClient;
 import com.reznikov.smartenergy.specifications.SupplierSpecificationBuilder;
 import com.reznikov.smartenergy.specifications.SearchCriteria;
 import io.swagger.annotations.Api;
@@ -32,6 +34,16 @@ public class SupplierController {
 
     @Autowired
     private SupplierService supplierService;
+
+    @Autowired
+    private SupplierRestTemplateClient supplierRestTemplateClient;
+
+    @RolesAllowed({"ADMIN"})
+    @GetMapping("/{id}/customers")
+    public ResponseEntity<List<CustomerFullDto>> getCustomersBySupplierId(@PathVariable("id") Long supplierId) {
+        List<CustomerFullDto> customers = supplierRestTemplateClient.getCustomers(supplierId);
+        return ResponseEntity.ok(customers);
+    }
 
     @GetMapping("/search")
     public ResponseEntity<List<SupplierRegDto>> findSupplierByComplexCriterias(
@@ -70,6 +82,7 @@ public class SupplierController {
         return ResponseEntity.ok(supplierService.getSupplierById(id));
     }
 
+    @RolesAllowed({"ADMIN"})
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteSupplier(@PathVariable Long id) {
         supplierService.deleteSupplier(id);

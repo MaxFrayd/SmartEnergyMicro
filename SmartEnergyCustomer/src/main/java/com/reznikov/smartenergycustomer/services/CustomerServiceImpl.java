@@ -103,8 +103,11 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<Customer> getCustomersBySupplier(Long supplierId) {
-        //FIXME
-        return customerRepository.findAllBySupplierId(supplierId);
+    public List<CustomerFullDto> getCustomersBySupplier(Long supplierId) {
+
+        return customerRepository.findAllBySupplierId(supplierId)
+                .stream()
+                .map(cs-> modelMapper.toFullDto(cs)).collect(Collectors.toList());
+
     }
 }
