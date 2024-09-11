@@ -28,7 +28,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/suppliers")
 @Validated
-@Api(value = "smartenergy-application", description = "Operations pertaining to agency management and ticket issue in the BRS application")
+@Api(value = "smartenergy-application")
 
 public class SupplierController {
 

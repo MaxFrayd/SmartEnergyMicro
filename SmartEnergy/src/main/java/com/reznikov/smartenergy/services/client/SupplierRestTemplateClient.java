@@ -23,7 +23,7 @@ public class SupplierRestTemplateClient {
                         "http://gateway:8072/smartenergycustomer/api/customer/supplier/{id}",
                         HttpMethod.GET,
                         null,
-                        new ParameterizedTypeReference<List<CustomerFullDto>>() {},
+                        new ParameterizedTypeReference<>() {},
                         organizationId);
 
         return restExchange.getBody();
