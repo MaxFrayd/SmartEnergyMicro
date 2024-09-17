@@ -44,5 +44,9 @@ public class Supplier {
     @UpdateTimestamp
     private  LocalDateTime updated;
 
+    public void increaseEnergyAmount(Double amount) {
+        currentEnergyAmount += amount;
+    }
+
 
 }

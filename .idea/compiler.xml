@@ -23,6 +23,7 @@
       <module name="gatewayserver" options="-parameters" />
       <module name="licensing-service" options="-parameters" />
       <module name="organization-service" options="-parameters" />
+      <module name="smartenergycustomer" options="-parameters" />
     </option>
   </component>
 </project>

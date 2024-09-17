@@ -5,7 +5,6 @@ import com.reznikov.smartenergy.dto.CustomerFullDto;
 import com.reznikov.smartenergy.dto.SupplierRegDto;
 import com.reznikov.smartenergy.dto.SupplierSearchDto;
 import com.reznikov.smartenergy.services.SupplierService;
-import com.reznikov.smartenergy.services.client.SupplierRestTemplateClient;
 import com.reznikov.smartenergy.specifications.SupplierSpecificationBuilder;
 import com.reznikov.smartenergy.specifications.SearchCriteria;
 import io.swagger.annotations.Api;
@@ -35,14 +34,20 @@ public class SupplierController {
     @Autowired
     private SupplierService supplierService;
 
-    @Autowired
-    private SupplierRestTemplateClient supplierRestTemplateClient;
+
 
     @RolesAllowed({"ADMIN"})
     @GetMapping("/{id}/customers")
     public ResponseEntity<List<CustomerFullDto>> getCustomersBySupplierId(@PathVariable("id") Long supplierId) {
-        List<CustomerFullDto> customers = supplierRestTemplateClient.getCustomers(supplierId);
+        List<CustomerFullDto> customers = supplierService.getCustomersBySupplierId(supplierId);
         return ResponseEntity.ok(customers);
+    }
+
+    @GetMapping("/{id}/customer/{cid}")
+    public ResponseEntity<String> removeCustomerFromSupplier(@PathVariable("id") Long supplierId,
+                                                             @PathVariable("cid") Long clientId) {
+        supplierService.releaseSupplierEnergy(supplierId, clientId);
+        return ResponseEntity.ok("Customer removed and supplier energy updated successfully.");
     }
 
     @GetMapping("/search")

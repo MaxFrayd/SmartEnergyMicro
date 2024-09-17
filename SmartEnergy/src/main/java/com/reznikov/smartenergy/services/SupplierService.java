@@ -1,6 +1,7 @@
 package com.reznikov.smartenergy.services;
 
 import com.reznikov.smartenergy.domains.Supplier;
+import com.reznikov.smartenergy.dto.CustomerFullDto;
 import com.reznikov.smartenergy.dto.SupplierRegDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,4 +25,8 @@ public interface SupplierService {
      void deleteSupplier(Long id);
 
      Page<Supplier> findBySearchCriteria(Specification<Supplier> spec, Pageable page);
+
+     public void releaseSupplierEnergy(Long sid, Long cid);
+
+     List<CustomerFullDto> getCustomersBySupplierId(Long sid);
 }

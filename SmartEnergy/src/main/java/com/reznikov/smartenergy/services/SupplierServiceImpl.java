@@ -2,16 +2,20 @@ package com.reznikov.smartenergy.services;
 
 import com.reznikov.smartenergy.domains.Address;
 import com.reznikov.smartenergy.domains.Supplier;
+import com.reznikov.smartenergy.dto.CustomerFullDto;
 import com.reznikov.smartenergy.dto.SupplierRegDto;
 import com.reznikov.smartenergy.enums.SupplierStatus;
+import com.reznikov.smartenergy.events.source.SimpleSourceBean;
 import com.reznikov.smartenergy.repositories.AddressRepository;
 import com.reznikov.smartenergy.repositories.SupplierRepository;
+import com.reznikov.smartenergy.services.client.SupplierRestTemplateClient;
 import com.reznikov.smartenergy.utils.DuplicateEntityException;
 import com.reznikov.smartenergy.utils.InvalidFormatException;
 import com.reznikov.smartenergy.utils.ModelMapper;
 import com.reznikov.smartenergy.utils.SupplierNotFoundException;
 
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -32,6 +36,11 @@ public class SupplierServiceImpl implements SupplierService {
 
     @Resource
     private ModelMapper modelMapper;
+
+    @Autowired
+    private SupplierRestTemplateClient supplierRestTemplateClient;
+    @Resource
+    private SimpleSourceBean simpleSourceBean;
 
     @Override
     public List<SupplierRegDto> findSuppliersByCriteria(String name, String email) {
@@ -92,9 +101,41 @@ public class SupplierServiceImpl implements SupplierService {
 
     @Override
     public Page<Supplier> findBySearchCriteria(Specification<Supplier> spec, Pageable page) {
-
         return supplierRepository.findAll(spec, page);
+    }
 
+    @Override
+    public void releaseSupplierEnergy(Long sid, Long cid) {
+        //Retrieve all customers for the supplier
+        List<CustomerFullDto> customers = supplierRestTemplateClient.getCustomers(sid);
 
+        //Find customer to be removed
+        CustomerFullDto requestedCustomer = customers.stream().filter(cust-> cust.getId().equals(cid))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Customer not found"));
+
+        //Get the energy amount of the customer to remove
+        Double requestedCustomerEnergy  = requestedCustomer.getEnergyAmount();
+
+        //Fetch the supplier details
+        Supplier supplier =  getSupplierById(sid)
+                .orElseThrow(()->new RuntimeException("Supplier not found"));
+
+        supplier.increaseEnergyAmount(requestedCustomerEnergy);
+
+        //Update the supplier in database
+        updateSupplier(supplier);
+
+        //Set the customer's supplierId to null;
+        requestedCustomer.setSupplierId(null);
+
+        // Update the customer (assuming the service has a method for that)
+        //supplierRestTemplateClient.updateCustomer(requestedCustomer);
+        simpleSourceBean.publishCustomerChange(requestedCustomer);
+    }
+
+    @Override
+    public List<CustomerFullDto> getCustomersBySupplierId(Long sid) {
+        return supplierRestTemplateClient.getCustomers(sid);
     }
 }

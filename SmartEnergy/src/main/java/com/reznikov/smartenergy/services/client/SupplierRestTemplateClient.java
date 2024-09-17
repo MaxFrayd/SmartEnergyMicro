@@ -29,4 +29,10 @@ public class SupplierRestTemplateClient {
         return restExchange.getBody();
     }
 
+    public void updateCustomer(CustomerFullDto customer) {
+        restTemplate.put(
+                "http://gateway:8072/smartenergycustomer/api/customer", customer
+        );
+    }
+
 }
