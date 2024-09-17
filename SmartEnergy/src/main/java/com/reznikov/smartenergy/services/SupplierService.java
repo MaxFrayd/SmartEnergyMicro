@@ -26,7 +26,7 @@ public interface SupplierService {
 
      Page<Supplier> findBySearchCriteria(Specification<Supplier> spec, Pageable page);
 
-     public void releaseSupplierEnergy(Long sid, Long cid);
+     void releaseSupplierEnergy(Long sid, Long cid);
 
      List<CustomerFullDto> getCustomersBySupplierId(Long sid);
 }
