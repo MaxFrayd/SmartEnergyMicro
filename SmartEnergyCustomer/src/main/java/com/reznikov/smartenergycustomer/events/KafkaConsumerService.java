@@ -16,12 +16,5 @@ public class KafkaConsumerService {
         System.out.println("Received message from 'dresses' topic: " + customer);
     }
 
-//    @Bean
-//    public Consumer<Message<String>> orgChangeTopic() {
-//        return message -> {
-//            System.out.println("Received message from 'dresses' topic: " + message.getPayload());
-//        };
-//    }
-
 
 }
