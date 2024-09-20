@@ -17,7 +17,7 @@ public interface CustomerService {
 
      String addCustomer(CustomerRegDto supplier);
 
-     Customer updateSupplier(Customer customer);
+     void updateCustomer(CustomerFullDto customer);
 
      List<Customer> getAllSuppliers();
 

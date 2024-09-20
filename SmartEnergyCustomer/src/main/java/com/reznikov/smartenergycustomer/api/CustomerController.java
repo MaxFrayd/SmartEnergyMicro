@@ -52,9 +52,12 @@ public class CustomerController {
 
 
     @PutMapping
-    public ResponseEntity<Customer> updateCustomer(@RequestBody Customer customer) {
-
-        return ResponseEntity.ok(customerService.updateSupplier(customer));
+    public ResponseEntity<String> updateCustomer(@RequestBody CustomerFullDto customer) {
+        customerService.updateCustomer(customer);
+        return ResponseEntity
+                .ok()
+                .header("Content-Type", "text/plain")
+                .body("Customer updated successfully");
     }
 
     @GetMapping

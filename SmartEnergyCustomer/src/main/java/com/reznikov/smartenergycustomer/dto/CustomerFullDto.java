@@ -37,6 +37,8 @@ public class CustomerFullDto {
 
     @PositiveOrZero(message = "Amount of energy should be zero or positive")
     private double energyAmount;
+    @NotNull
+    private Double pricePrKwt;
 
     @Enumerated(EnumType.STRING)
     private CustomerStatus status;

@@ -27,6 +27,7 @@ public class CustomerFullDto {
 
     private double energyAmount;
 
+    private Double pricePrKwt;
 
     private CustomerStatus status;
 

@@ -69,8 +69,8 @@ public class CustomerServiceImpl implements CustomerService {
         return longitude != null && longitude >= -180 && longitude <= 180;
     }
 
-    public Customer updateSupplier(Customer customer) {
-        return customerRepository.save(customer);
+    public void updateCustomer(CustomerFullDto customer) {
+         customerRepository.save(modelMapper.fromFullDto(customer));
     }
 
     public List<Customer> getAllSuppliers() {
@@ -90,7 +90,7 @@ public class CustomerServiceImpl implements CustomerService {
     public String activateSupplier(Long id) {
         Customer customer =  this.getSupplierById(id).orElseThrow(()->new SupplierNotFoundException("Supplier is not found "));
         customer.setStatus(CustomerStatus.ACTIVE);
-        this.updateSupplier(customer);
+        customerRepository.save(customer);
         return "Activated";
     }
 
@@ -108,6 +108,5 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.findAllBySupplierId(supplierId)
                 .stream()
                 .map(cs-> modelMapper.toFullDto(cs)).collect(Collectors.toList());
-
     }
 }

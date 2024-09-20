@@ -12,6 +12,9 @@ import lombok.NoArgsConstructor;
 
 @Data
 public class AddressDto {
+    @NotNull
+    private Long id;
+
     @NotNull(message = "Latitude is mandatory")
     private double latitude;
 

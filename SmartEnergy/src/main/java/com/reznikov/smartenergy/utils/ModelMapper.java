@@ -46,9 +46,9 @@ public class ModelMapper {
     }
 
     public Address fromAddressDto(AddressDto dto) {
-        return new Address(dto.getLatitude(), dto.getLongitude(), dto.getCity());
+        return new Address(dto.getId(), dto.getLatitude(), dto.getLongitude(), dto.getCity());
     }
     public AddressDto toAddressDto(Address address) {
-        return new AddressDto(address.getLatitude(), address.getLongitude(), address.getCity());
+        return new AddressDto(address.getId(), address.getLatitude(), address.getLongitude(), address.getCity());
     }
 }

@@ -33,10 +33,10 @@ public class ModelMapper {
     }
 
     public Address fromAddressDto(AddressDto dto) {
-        return new Address(dto.getLatitude(), dto.getLongitude(), dto.getCity());
+        return new Address(dto.getId(), dto.getLatitude(), dto.getLongitude(), dto.getCity());
     }
     public AddressDto toAddressDto(Address address) {
-        return new AddressDto(address.getLatitude(), address.getLongitude(), address.getCity());
+        return new AddressDto(address.getId(), address.getLatitude(), address.getLongitude(), address.getCity());
     }
 
     public CustomerFullDto toFullDto(Customer entity) {
@@ -46,7 +46,21 @@ public class ModelMapper {
                 .email(entity.getEmail())
                 .address(toAddressDto(entity.getAddress()))
                 .energyAmount(entity.getEnergyAmount())
+                .pricePrKwt(entity.getPricePrKwt())
                 .supplierId(entity.getSupplierId())
+                //ADD other fields
+                .build();
+    }
+
+    public Customer fromFullDto(CustomerFullDto dto) {
+        return Customer.builder()
+                .id(dto.getId())
+                .name(dto.getName())
+                .email(dto.getEmail())
+                .address(fromAddressDto(dto.getAddress()))
+                .energyAmount(dto.getEnergyAmount())
+                .pricePrKwt(dto.getPricePrKwt())
+                .supplierId(dto.getSupplierId())
                 //ADD other fields
                 .build();
     }
