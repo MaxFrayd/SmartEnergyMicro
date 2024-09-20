@@ -167,6 +167,25 @@ services:
       backend:
         aliases:
           - "kafka"
+  akhq:
+    image: tchiotludo/akhq
+    container_name: akhq
+    ports:
+      - "8091:8080"  # Expose AKHQ on localhost:8081
+    environment:
+      AKHQ_CONFIGURATION: |
+        akhq:
+          connections:
+            kafka-cluster:
+              properties:
+                bootstrap.servers: "kafkaserver:9092"
+    depends_on:
+      - kafkaserver
+    networks:
+      backend:
+        aliases:
+          - "akhq"
+
   redisserver:
     image: redis:alpine
     ports:
