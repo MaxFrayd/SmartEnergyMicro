@@ -3,12 +3,14 @@ package com.reznikov.smartenergy.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.redis.core.RedisHash;
 
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@RedisHash("CustomerFullDto")
 public class CustomerFullDto {
 
     private Long id;

@@ -3,6 +3,7 @@ package com.reznikov.smartenergy.utils;
 import com.reznikov.smartenergy.domains.Address;
 import com.reznikov.smartenergy.domains.Supplier;
 import com.reznikov.smartenergy.dto.AddressDto;
+import com.reznikov.smartenergy.dto.SupplierFullDto;
 import com.reznikov.smartenergy.dto.SupplierRegDto;
 import com.reznikov.smartenergy.enums.SupplierStatus;
 import org.springframework.stereotype.Component;
@@ -50,5 +51,16 @@ public class ModelMapper {
     }
     public AddressDto toAddressDto(Address address) {
         return new AddressDto(address.getId(), address.getLatitude(), address.getLongitude(), address.getCity());
+    }
+    public SupplierFullDto toFullDto (Supplier entity) {
+        return new SupplierFullDto(entity.getId(),
+                entity.getName(),
+                entity.getEmail(),
+                toAddressDto(entity.getAddress()),
+                entity.getEnergyAmount(),
+                entity.getStatus(),
+                entity.getCreated(),
+                entity.getUpdated()
+        );
     }
 }

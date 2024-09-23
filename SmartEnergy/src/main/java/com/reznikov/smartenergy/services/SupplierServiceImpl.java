@@ -3,6 +3,7 @@ package com.reznikov.smartenergy.services;
 import com.reznikov.smartenergy.domains.Address;
 import com.reznikov.smartenergy.domains.Supplier;
 import com.reznikov.smartenergy.dto.CustomerFullDto;
+import com.reznikov.smartenergy.dto.SupplierFullDto;
 import com.reznikov.smartenergy.dto.SupplierRegDto;
 import com.reznikov.smartenergy.enums.SupplierStatus;
 import com.reznikov.smartenergy.events.source.SimpleSourceBean;
@@ -82,8 +83,9 @@ public class SupplierServiceImpl implements SupplierService {
         return supplierRepository.findAll();
     }
 
-    public Optional<Supplier> getSupplierById(Long id) {
-        return supplierRepository.findById(id);
+    public SupplierFullDto getSupplierById(Long id) {
+
+        return modelMapper.toFullDto(supplierRepository.findById(id).orElseThrow());
     }
 
     public void deleteSupplier(Long id) {
@@ -93,7 +95,7 @@ public class SupplierServiceImpl implements SupplierService {
 
     @Override
     public String activateSupplier(Long id) {
-        Supplier supplier =  this.getSupplierById(id).orElseThrow(()->new SupplierNotFoundException("Supplier is not found "));
+        Supplier supplier =  supplierRepository.findById(id).orElseThrow(()->new SupplierNotFoundException("Supplier is not found "));
         supplier.setStatus(SupplierStatus.ACTIVE);
         this.updateSupplier(supplier);
         return "Activated";

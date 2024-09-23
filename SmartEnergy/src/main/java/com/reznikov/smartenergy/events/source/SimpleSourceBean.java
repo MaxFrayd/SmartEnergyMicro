@@ -24,4 +24,6 @@ public class SimpleSourceBean {
 
         source.output().send(MessageBuilder.withPayload(customer).build());
     }
+
+
 }

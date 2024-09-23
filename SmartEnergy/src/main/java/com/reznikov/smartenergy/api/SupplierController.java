@@ -2,6 +2,7 @@ package com.reznikov.smartenergy.api;
 
 import com.reznikov.smartenergy.domains.Supplier;
 import com.reznikov.smartenergy.dto.CustomerFullDto;
+import com.reznikov.smartenergy.dto.SupplierFullDto;
 import com.reznikov.smartenergy.dto.SupplierRegDto;
 import com.reznikov.smartenergy.dto.SupplierSearchDto;
 import com.reznikov.smartenergy.services.SupplierService;
@@ -83,7 +84,7 @@ public class SupplierController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Supplier>> getSupplierById(@PathVariable Long id) {
+    public ResponseEntity<SupplierFullDto> getSupplierById(@PathVariable Long id) {
         return ResponseEntity.ok(supplierService.getSupplierById(id));
     }
 
