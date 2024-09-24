@@ -24,7 +24,6 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -120,7 +119,7 @@ public class SupplierServiceImpl implements SupplierService {
         Double requestedCustomerEnergy  = requestedCustomer.getEnergyAmount();
 
         //Fetch the supplier details
-        Supplier supplier =  getSupplierById(sid)
+        Supplier supplier =  supplierRepository.findById(sid)
                 .orElseThrow(()->new RuntimeException("Supplier not found"));
 
         supplier.increaseEnergyAmount(requestedCustomerEnergy);
