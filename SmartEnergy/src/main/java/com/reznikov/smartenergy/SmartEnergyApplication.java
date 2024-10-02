@@ -1,6 +1,7 @@
 package com.reznikov.smartenergy;
 
 import com.reznikov.smartenergy.config.ServiceConfig;
+import com.reznikov.smartenergy.utils.MyBindings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,7 +19,9 @@ import org.springframework.data.redis.core.RedisTemplate;
 @EnableEurekaClient
 @EnableFeignClients
 @RefreshScope
-@EnableBinding(Source.class)
+//@EnableBinding(Source.class)
+@EnableBinding(MyBindings.class)
+
 
 public class SmartEnergyApplication {
     @Autowired

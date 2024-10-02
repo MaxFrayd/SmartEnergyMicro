@@ -2,6 +2,7 @@ package com.reznikov.smartenergy.services;
 
 import com.reznikov.smartenergy.domains.Supplier;
 import com.reznikov.smartenergy.dto.CustomerFullDto;
+import com.reznikov.smartenergy.dto.EnergyUpdateDto;
 import com.reznikov.smartenergy.dto.SupplierFullDto;
 import com.reznikov.smartenergy.dto.SupplierRegDto;
 import org.springframework.data.domain.Page;
@@ -17,7 +18,7 @@ public interface SupplierService {
      String activateSupplier(Long id);
      String addSupplier(SupplierRegDto supplier);
 
-     Supplier updateSupplier(Supplier supplier);
+     void updateSupplier(SupplierFullDto supplier);
 
      List<Supplier> getAllSuppliers();
 
@@ -30,4 +31,6 @@ public interface SupplierService {
      void releaseSupplierEnergy(Long sid, Long cid);
 
      List<CustomerFullDto> getCustomersBySupplierId(Long sid);
+
+     void updateSupplierEnergyAmount(EnergyUpdateDto energyUpdateDto);
 }

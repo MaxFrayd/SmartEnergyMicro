@@ -1,13 +1,11 @@
 package com.reznikov.smartenergy.api;
 
 import com.reznikov.smartenergy.domains.Supplier;
-import com.reznikov.smartenergy.dto.CustomerFullDto;
-import com.reznikov.smartenergy.dto.SupplierFullDto;
-import com.reznikov.smartenergy.dto.SupplierRegDto;
-import com.reznikov.smartenergy.dto.SupplierSearchDto;
+import com.reznikov.smartenergy.dto.*;
 import com.reznikov.smartenergy.services.SupplierService;
 import com.reznikov.smartenergy.specifications.SupplierSpecificationBuilder;
 import com.reznikov.smartenergy.specifications.SearchCriteria;
+import com.reznikov.smartenergy.utils.ModelMapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
@@ -23,7 +21,7 @@ import org.springframework.data.domain.Pageable;
 
 import javax.annotation.security.RolesAllowed;
 import java.util.List;
-import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/api/suppliers")
@@ -34,7 +32,9 @@ public class SupplierController {
 
     @Autowired
     private SupplierService supplierService;
-
+    //@Qualifier("modelMapper")
+    @Autowired
+    private ModelMapper modelMapper;
 
 
     @RolesAllowed({"ADMIN"})
@@ -72,9 +72,17 @@ public class SupplierController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<Supplier> updateSupplier(@PathVariable Long id, @RequestBody Supplier supplier) {
-        supplier.setId(id);
-        return ResponseEntity.ok(supplierService.updateSupplier(supplier));
+    public ResponseEntity<String> updateSupplier(@PathVariable Long id, @RequestBody SupplierFullDto supplier) {
+        //supplier.setId(id);
+        supplierService.updateSupplier(supplier);
+        return ResponseEntity.ok("Supplier updated successfully.");
+    }
+
+    @PutMapping("/updateSupplierEnergyAmount")
+    public ResponseEntity<String> updateSupplierEnergy(@RequestBody EnergyUpdateDto energyUpdateDto) {
+        //supplier.setId(id);
+        supplierService.updateSupplierEnergyAmount(energyUpdateDto);
+        return ResponseEntity.ok("Supplier energy updated successfully.");
     }
 
     @GetMapping

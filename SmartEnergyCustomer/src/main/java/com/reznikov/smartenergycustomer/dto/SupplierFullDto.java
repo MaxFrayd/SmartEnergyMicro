@@ -4,6 +4,8 @@ package com.reznikov.smartenergycustomer.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.redis.core.RedisHash;
+import org.springframework.hateoas.RepresentationModel;
 
 import javax.persistence.Id;
 import java.time.LocalDateTime;
@@ -11,7 +13,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class SupplierFullDto {
+@RedisHash("SupplierFullDto")
+public class SupplierFullDto extends RepresentationModel<SupplierFullDto> {
 
     @Id
     private Long id;

@@ -7,6 +7,7 @@ import com.reznikov.smartenergycustomer.dto.CustomerRegDto;
 import com.reznikov.smartenergycustomer.enums.CustomerStatus;
 import com.reznikov.smartenergycustomer.repositories.AddressRepository;
 import com.reznikov.smartenergycustomer.repositories.CustomerRepository;
+import com.reznikov.smartenergycustomer.repositories.SupplierRedisRepository;
 import com.reznikov.smartenergycustomer.utils.DuplicateEntityException;
 import com.reznikov.smartenergycustomer.utils.InvalidFormatException;
 import com.reznikov.smartenergycustomer.utils.ModelMapper;
@@ -35,6 +36,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Resource
     private ModelMapper modelMapper;
+
 
 
     @Override

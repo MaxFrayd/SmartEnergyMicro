@@ -33,6 +33,10 @@ public class SupplierFullDto {
     @PositiveOrZero(message = "Amount of energy should be zero or positive")
     private double energyAmount;
 
+    private Double currentEnergyAmount;
+
+    private Double pricePrKwt;
+
     @Enumerated(EnumType.STRING)
     private SupplierStatus status;
 

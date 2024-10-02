@@ -88,7 +88,7 @@ services:
         aliases:
           - "gateway"
   smartenergy:
-    image: ostock/smartenergy:0.0.1-SNAPSHOT
+    image: maxfrayd/smartenergy:0.0.1-SNAPSHOT
     environment:
       CONFIGSERVER_URI: "http://configserver:8071"
       CONFIGSERVER_PORT:   "8071"

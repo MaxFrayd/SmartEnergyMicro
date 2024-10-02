@@ -3,9 +3,11 @@ package com.reznikov.smartenergy.services;
 import com.reznikov.smartenergy.domains.Address;
 import com.reznikov.smartenergy.domains.Supplier;
 import com.reznikov.smartenergy.dto.CustomerFullDto;
+import com.reznikov.smartenergy.dto.EnergyUpdateDto;
 import com.reznikov.smartenergy.dto.SupplierFullDto;
 import com.reznikov.smartenergy.dto.SupplierRegDto;
 import com.reznikov.smartenergy.enums.SupplierStatus;
+import com.reznikov.smartenergy.events.model.SupplierEnergyChangeModel;
 import com.reznikov.smartenergy.events.source.SimpleSourceBean;
 import com.reznikov.smartenergy.repositories.AddressRepository;
 import com.reznikov.smartenergy.repositories.SupplierRepository;
@@ -23,6 +25,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -73,9 +76,18 @@ public class SupplierServiceImpl implements SupplierService {
     private boolean isValidLongitude(Double longitude) {
         return longitude != null && longitude >= -180 && longitude <= 180;
     }
+    @Override
+    public void updateSupplier(SupplierFullDto supplierFullDto) {
+        Supplier existingSupplier = supplierRepository.findById(supplierFullDto.getId()).orElseThrow(
+                () -> new EntityNotFoundException("Supplier not found for ID: " + supplierFullDto.getId()));
+         supplierRepository.save(modelMapper.updateSupplierFromDto(supplierFullDto, existingSupplier));
+    }
+    @Override
+    public void updateSupplierEnergyAmount(EnergyUpdateDto energyUpdateDto) {
+        SupplierEnergyChangeModel changeModel = modelMapper.toEnergyChangeModel(energyUpdateDto.getSupplierFullDto(), energyUpdateDto.getUpdatedEnergy());
 
-    public Supplier updateSupplier(Supplier supplier) {
-        return supplierRepository.save(supplier);
+        simpleSourceBean.publishSupplierEnergyUpdate(changeModel);
+
     }
 
     public List<Supplier> getAllSuppliers() {
@@ -84,7 +96,7 @@ public class SupplierServiceImpl implements SupplierService {
 
     public SupplierFullDto getSupplierById(Long id) {
 
-        return modelMapper.toFullDto(supplierRepository.findById(id).orElseThrow());
+        return modelMapper.toFullDto(supplierRepository.findById(id).orElseThrow( () -> new EntityNotFoundException("Supplier not found for ID: " + id)));
     }
 
     public void deleteSupplier(Long id) {
@@ -96,7 +108,7 @@ public class SupplierServiceImpl implements SupplierService {
     public String activateSupplier(Long id) {
         Supplier supplier =  supplierRepository.findById(id).orElseThrow(()->new SupplierNotFoundException("Supplier is not found "));
         supplier.setStatus(SupplierStatus.ACTIVE);
-        this.updateSupplier(supplier);
+        supplierRepository.save(supplier);
         return "Activated";
     }
 
@@ -125,7 +137,7 @@ public class SupplierServiceImpl implements SupplierService {
         supplier.increaseEnergyAmount(requestedCustomerEnergy);
 
         //Update the supplier in database
-        updateSupplier(supplier);
+        supplierRepository.save(supplier);
 
         //Set the customer's supplierId to null;
         requestedCustomer.setSupplierId(null);

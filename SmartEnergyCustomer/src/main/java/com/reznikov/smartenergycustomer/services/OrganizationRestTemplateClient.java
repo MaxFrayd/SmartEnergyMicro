@@ -12,12 +12,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.Resource;
+
 @Component
 public class OrganizationRestTemplateClient {
-	@Autowired
+	@Resource
 	RestTemplate restTemplate;
 
-	@Autowired
+	@Resource
 	SupplierRedisRepository redisRepository;
 
 	private static final Logger logger = LoggerFactory.getLogger(OrganizationRestTemplateClient.class);
