@@ -26,8 +26,8 @@
     <module>configserver</module>
     <module>eurekaserver</module>
     <module>gatewayserver</module>
-    <module>smartenergy</module>
-    <module>smartenergycustomer</module>
+    <module>SmartEnergy</module>
+    <module>SmartEnergyCustomer</module>
   </modules>
   <build>
     <plugins>
