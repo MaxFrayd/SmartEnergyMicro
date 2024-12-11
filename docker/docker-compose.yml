@@ -129,7 +129,7 @@ services:
       - KC_DB_URL=jdbc:postgresql://kdatabase:5432/smart_energy_keycloak
       - KC_DB_USERNAME=postgres
       - KC_DB_PASSWORD=postgres
-      - KC_HOSTNAME=keycloak
+      - KC_HOSTNAME=13.50.169.126
 #      - KC_HOSTNAME_STRICT=false
 #      - KC_HOSTNAME_STRICT_HTTPS=false
 #      - KC_HOSTNAME_URL=http://localhost:8080
